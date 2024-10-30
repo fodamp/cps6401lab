@@ -8,7 +8,7 @@ int max_iter = 50;
 double x0;
 double x1;
 double x2 = 0;
-double x3 = 0
+double x3 = 0;
 int counter = 0;
 
 
@@ -29,49 +29,66 @@ return (6.0 * pow(x,5) - 1);
 double BisectionMet()
 {
 
-	printf("\nSolving Equation Using The Bisection Method \n");
-	printf("\nEnter Initial First Number: \n");
-	scanf("%lf", &x0);
+printf("\nSolving Equation Using The Bisection Method \n");
+printf("\nEnter Initial First Number: \n");
+scanf("%lf", &x0);
 
-	printf("\nEnter Initial Second Number: \n");
-	scanf("%lf", &x1);
+printf("\nEnter Initial Second Number: \n");
+scanf("%lf", &x1);
 	
-	if (x0 > x1 | x0 == x1)
+	
+if (x0 > x1)
+{
+printf("\nThe first initial number should be less than the second.\n");
+//break;
+} else if (fun(x0) * fun(x1) > 0)
+{
+printf("\nThe function is not continuous and there is no root between the initial two numbers given\n");
+//break;
+} 
+else{
+	
+do	
+{
+	printf("Counter %d\n", counter);
+	if (counter == max_iter)
 	{
-		printf("\nThe first initial number should be less than the second.\n");
-		break;
+	printf("\nMax iterations reached. No convergence\n");
+	break;
 	}
-	
-	
-	
-	if (fun(x0) * fun(x1) > 0)
-	{
-		printf("\nThe function is not continuous and there is no root between the initial two numbers given\n");
-		break;
-	}
-	
+		
 	// Calculating the midpoint
-	x3 = (x0 + x1)/2;
 	
+	x3 = (x0 + x1)/2;
+	counter = counter + 1;
+		
 	if (fun(x3) == 0)
 	{
-		printf("\nThe root of the function is: %lf \n", x3);
-		break;
+	printf("\nThe root of the function is: %lf \n", x3);
+	break;
 	} 
-	else if (
+	else if (fun(x3) < 0)
 	{
-	
+	x0 == x3;
+	} 
+	else
+	{
+	x1 == x3;
 	}
-	
-	
-	
-	
-
-double root;
-printf("Play game called");
-return root;
-
+}while (fabs(fun(x3)) > tol);
 }
+	
+}
+	
+	
+	
+	
+
+//double root;
+//printf("Play game called");
+//return root;
+
+//}
 
 // Newton's Method
 double NewtonMet()
@@ -113,8 +130,6 @@ printf("\nThe approximate root is %lf with tolerance = %lf using %d iterations\n
 
 double SecantMet()
 {
-
-
 //int option = 3;
 //double root;
 
