@@ -8,6 +8,7 @@ int max_iter = 50;
 double x0;
 double x1;
 double x2 = 0;
+double x3 = 0
 int counter = 0;
 
 
@@ -27,6 +28,44 @@ return (6.0 * pow(x,5) - 1);
 // Bisection Method
 double BisectionMet()
 {
+
+	printf("\nSolving Equation Using The Bisection Method \n");
+	printf("\nEnter Initial First Number: \n");
+	scanf("%lf", &x0);
+
+	printf("\nEnter Initial Second Number: \n");
+	scanf("%lf", &x1);
+	
+	if (x0 > x1 | x0 == x1)
+	{
+		printf("\nThe first initial number should be less than the second.\n");
+		break;
+	}
+	
+	
+	
+	if (fun(x0) * fun(x1) > 0)
+	{
+		printf("\nThe function is not continuous and there is no root between the initial two numbers given\n");
+		break;
+	}
+	
+	// Calculating the midpoint
+	x3 = (x0 + x1)/2;
+	
+	if (fun(x3) == 0)
+	{
+		printf("\nThe root of the function is: %lf \n", x3);
+		break;
+	} 
+	else if (
+	{
+	
+	}
+	
+	
+	
+	
 
 double root;
 printf("Play game called");
