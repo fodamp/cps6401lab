@@ -3,7 +3,7 @@
 
 
 //Global Variables
-double tol = 1e-8;
+double tol = 1e-3;
 int max_iter = 50;
 double x0;
 double x1;
@@ -27,56 +27,57 @@ return (6.0 * pow(x,5) - 1);
 
 // Bisection Method
 double BisectionMet()
-{
+	{
 
-printf("\nSolving Equation Using The Bisection Method \n");
-printf("\nEnter Initial First Number: \n");
-scanf("%lf", &x0);
+		printf("\nSolving Equation Using The Bisection Method \n");
+		printf("\nEnter Initial First Number: \n");
+		scanf("%lf", &x0);
 
-printf("\nEnter Initial Second Number: \n");
-scanf("%lf", &x1);
+		printf("\nEnter Initial Second Number: \n");
+		scanf("%lf", &x1);
 	
 	
-if (x0 > x1)
-{
-printf("\nThe first initial number should be less than the second.\n");
-//break;
-} else if (fun(x0) * fun(x1) > 0)
-{
-printf("\nThe function is not continuous and there is no root between the initial two numbers given\n");
-//break;
-} 
-else{
+		if (x0 > x1)
+		{
+			printf("\nThe first initial number should be less than the second.\n");
+			//break;
+		}else if (fun(x0) * fun(x1) > 0)
+		{
+			printf("\nThe function is not continuous and there is no root between the initial two numbers given\n");
+			//break;
+		}else{
 	
-do	
-{
-	printf("Counter %d\n", counter);
-	if (counter == max_iter)
-	{
-	printf("\nMax iterations reached. No convergence\n");
-	break;
-	}
+			do	
+			{
+				//printf("Counter %d\n", counter);
+				
+				if (counter == max_iter)
+				{
+					printf("\nMax iterations reached. No convergence\n");
+					break;
+				}
 		
-	// Calculating the midpoint
+				// Calculating the midpoint
 	
-	x3 = (x0 + x1)/2;
-	counter = counter + 1;
+				x3 = (x0 + x1)/2;
+				counter = counter + 1;
+				printf("At iteration = %d of maxiterations= %d |f(x3)| = %lf \n", counter, max_iter, fabs(fun(x3)));
 		
-	if (fun(x3) == 0)
-	{
-	printf("\nThe root of the function is: %lf \n", x3);
-	break;
-	} 
-	else if (fun(x3) < 0)
-	{
-	x0 == x3;
-	} 
-	else
-	{
-	x1 == x3;
-	}
-}while (fabs(fun(x3)) > tol);
-}
+				if (fun(x3) == 0)
+				{
+					printf("\nThe root of the function is: %lf \n", x3);
+					break;
+				}else if (fun(x3) < 0)
+				{
+					x0 = x3;
+				}else
+				{
+					x1 = x3;
+				}
+			}while (fabs(fun(x3)) > tol);
+		}
+	printf("\nThe approximate root is %lf with tolerance = %lf using %d iterations\n ", x3, tol, counter); 
+	return 0;
 	
 }
 	
@@ -124,7 +125,7 @@ printf("\nThe approximate root is %lf with tolerance = %lf using %d iterations\n
 
 //printf("Input the function: ");
 //scanf();
-//return root;
+return 0;
 
 }
 
@@ -170,7 +171,8 @@ else
 	printf("\nThe approximate root is %lf with tolerance = %lf using %d iterations\n ", x2, tol, counter);	
 
 }
-		
+
+return 0;		
 }
      
 
