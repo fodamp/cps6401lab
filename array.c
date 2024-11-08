@@ -13,14 +13,14 @@ int freqnum = 0;
 	for (int i = 0; i<8; ++i)
 	{
 		
-		if (numberpass != arrayfind[i])
+		if (freqnum != arrayfind[i])
 		{
 			for (int j=0; j<=8; ++j)
 				if (j != i)
 					if (arrayfind[j] == arrayfind[i])
 					counter = counter + 1;
 			
-			numberpass = arrayfind[i];
+			//numberpass = arrayfind[i];
 			if (freq <= counter)
 				freq = counter;
 				freqnum = arrayfind[i];

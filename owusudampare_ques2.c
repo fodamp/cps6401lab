@@ -1,29 +1,57 @@
 #include<stdio.h>
+#include<math.h>
+
+#define arraysize 5
 
 
 //This program calculates the average of the scores of 5 students.
 
 
-int main(){
-	//int n = 5;
-	//int max_student_size = 1000;
-	int x[5];//array of variable length. 
-	//x[1]= x[2]= wrong because 
-	// indexing begins at 0. x[0] and x[1].
-	double avg=-5.0;
-	x[0]= 10;
-	x[1]= 7;
-	x[2]= 5;
-	x[3]= 9;
-	x[4]= 10;
-	double sum = 0.0;//sum 41
-	for (int i = 0 ;i < 5; ++i)
+int main()
+{
+//int n = 5;
+//int max_student_size = 1000;
+
+
+int stugrad[arraysize] = {10, 7, 5, 9, 10};  //array of variable length. 
+double avg = -5.0;
+double sum = 0.0;   //sum 41
+double sdsum = 0.0;
+int counter = 0;
+int freq = 0;
+int freqnum = -9999999;
+	
+	for (int i = 0; i < arraysize; ++i)
+	{
+		sum += stugrad[i];
+		
+		if (freqnum != stugrad[i])
 		{
-		sum +=x[i];
-		printf("for i = %d, sum = %lf \n ", i, sum );
-			//more for checking if the right sum is being 
-			//computed.
-		} // for-loop
-	avg = sum/5;
-	printf("the average score is: %lf \n", avg);
+			for (int j=0; j < arraysize; ++j)
+				if (j != i)
+					if (stugrad[j] == stugrad[i])
+					counter = counter + 1;
+		
+			if (freq <= counter)
+				freq = counter;
+				freqnum = stugrad[i];
+		}
+		
+	} // for-loop
+	
+	avg = sum/arraysize;
+	
+	for (int i = 0; i < arraysize; ++i)
+		sdsum += pow(fabs(stugrad[i] - avg), 2);
+	
+	sdsum = sqrt(sdsum/arraysize);
+	
+	printf("\nThe summary statistics of the grades: %d, %d, %d, %d, %d is\n",stugrad[0], stugrad[1], stugrad[2], stugrad[3], stugrad[4]);
+	printf("1. Average: %.3lf \n", avg);
+	printf("2. Mode: %d \n", freqnum);
+	printf("3. Standard deviation: %.3lf \n", sdsum);
+	
+	
+return 0;
 }
+
