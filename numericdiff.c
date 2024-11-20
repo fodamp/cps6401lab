@@ -4,6 +4,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include <math.h>
+#include <cblas.h>
 
 /*
   void diff(double* u, int N, double dx, double* du)
@@ -19,20 +20,19 @@
   Outputs: 
   du: contains the forward finite difference approximation
 */
-void diff(double* u, int N, double dx, double* du) {
+void diff(double* u, int N, double dx, double* du)
+{
 
-  int i;
-  du[0] = (u[1]-u[0])/dx;
-  for (i=1; i<N-1; ++i) {
-    du[i] = (u[i]-u[i-1])/dx;
-  }
-  du[N-1] = (u[N-1]-u[N-2])/dx;
+	int i;
+	
+ 	du[0] = (u[1] - u[0]) / dx; //Forward Difference for the 1st point
   
+	for (i=1; i < N - 1; ++i)
+  	{
+    		du[i] = (u[i + 1] - u[i]) / dx; //Forward Difference for the middle points
+  	}
   
-  for(int i=0; i<=N, ++i)
-  {
-  
-  }
+  	du[N-1] = (u[N - 1] - u[N - 2]) / dx; //Backward Difference for the last point
   
 }
 
@@ -51,9 +51,11 @@ void diff(double* u, int N, double dx, double* du) {
 */
 void init(double* u, int N, double dx)
 {
-  int i;
-  for (i=0; i<N+1; ++i)
-    u[i] = sin(i*dx);
+  	int i;
+  	for (i=0; i < N + 1; ++i)
+  	{
+    		u[i] = sin(i * dx);
+    	}
 }
 
 /*
@@ -68,23 +70,36 @@ void init(double* u, int N, double dx)
 */
 int main(int argc, char* argv[])
 {
-int N = atoi(argv[1]);
+	int N = atoi(argv[1]);
 
 
-double* u = (double*)malloc(N*sizeof(double));
-double* du = (double*)malloc(N*sizeof(double));
-double dx = M_PI/N;
+	double* u = (double*)malloc((N+1)*sizeof(double));
+	double* du = (double*)malloc((N+1)*sizeof(double));
+	double* errdu = (double*)malloc((N+1)*sizeof(double));//calculating error.
+	double dx = M_PI/N;
 
-init(u, N, dx);  
-for (int i=0; i<N+1;++i)
-    printf("sin[%d] = %f  \n",i, u[i]);
-diff(u, N, dx, du);
-for (int i=0; i<N;++i)
-    printf("diff = %.6f - %.6f = %.6f \n",cos(i), du[i], cos(i)-du[i]);
-free(u);
-free(du);
-//free(errdu);
+	init(u, N, dx);  
 
-return 0;
+	for (int i=0; i < N+1;++i)
+	{
+    		printf("sin[%d] = %f  \n",i, u[i]);
+    	}
+    
+	diff(u, N, dx, du);
+
+	for (int i=0; i < N +1 ;++i)
+	{
+    		errdu[i] = cos(i * dx) - du[i];
+    		printf("diff = %f - %f = %f \n",cos(i * dx), du[i], cos(i*dx) - du[i]);
+	}
+    
+	double error_L2 = cblas_ddot(N+1, errdu, 1, errdu, 1);
+	printf("L2 error = %f \n", sqrt(error_L2));
+
+	free(u);
+	free(du);
+	free(errdu);
+
+	return 0;
 }
 

@@ -23,7 +23,7 @@ void diff(double* u, int N, double dx, double* du) {
 
   int i;
   du[0] = (u[1]-u[0])/dx;
-  for (i=1; i<N-1; ++i) {
+  for (i=1; i < N-1; ++i) {
     du[i] = (u[i]-u[i-1])/dx;
   }
   du[N-1] = (u[N-1]-u[N-2])/dx;
