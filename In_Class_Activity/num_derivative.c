@@ -66,7 +66,8 @@ int main(int argc, char* argv[])
 	double* errdfdx = (double*)malloc((N + 1) * sizeof(double));
 
 	double dx = (2 * M_PI) / N;
-	//double dx = M_PI / N;
+	//
+	double dx = M_PI / N;
 
 
 	printf("\nApproximation of sin(x) using Forward Difference\n");
